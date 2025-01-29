@@ -1,0 +1,40 @@
+
+---
+
+# Manual de instrucciones para la ejecución automática de análisis de imágenes
+
+## Español
+
+### Requisitos previos
+- Asegúrese de tener el archivo ejecutable (.BAT) en su ordenador
+- Necesitará espacio suficiente en el disco duro (mínimo 10GB recomendado)
+- El ordenador debe estar conectado a Internet durante la primera ejecución
+
+### Estructura de carpetas
+El script creará automáticamente las siguientes carpetas si no existen:
+- `DICOM`: Para las imágenes DICOM de entrada
+- `nifti`: Para los archivos convertidos (debe estar vacía antes de la ejecución)
+- `output`: Para los resultados del análisis (debe estar vacía antes de la ejecución)
+
+### Pasos para la ejecución
+1. Coloque sus imágenes DICOM en la carpeta `DICOM`
+   - Cada estudio debe estar en una carpeta separada dentro de `DICOM`
+   - Ejemplo: `DICOM/Paciente1/`, `DICOM/Paciente2/`, etc.
+
+2. Asegúrese de que las carpetas `nifti` y `output` están vacías
+   - Si hay archivos de ejecuciones anteriores, elimínelos
+   - Importante: Guarde los resultados anteriores en otra ubicación si los necesita
+
+3. Ejecución del script
+   - Haga doble clic sobre el archivo .BAT
+   - Se abrirá una ventana negra de comandos
+   - NO cierre esta ventana hasta que el proceso haya terminado
+   - El proceso puede tardar entre 5-15 minutos por estudio
+
+4. Finalización
+   - El script se cerrará automáticamente cuando haya terminado
+   - Los resultados se encontrarán en la carpeta `output`
+   - Las imágenes convertidas estarán en la carpeta `nifti`
+
+### Problemas conocidos
+[Espacio reservado para problemas conocidos]

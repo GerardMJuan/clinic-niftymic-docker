@@ -1,0 +1,40 @@
+# Manual d'instruccions per a l'execució de l'script de reconstrucció fetal NiftyMIC
+(https://github.com/gift-surg/NiftyMIC)
+
+[EbnerWang2020] Ebner, M., Wang, G., Li, W., Aertsen, M., Patel, P. A., Aughwane, R., Melbourne, A., Doel, T., Dymarkowski, S., De Coppi, P., David, A. L., Deprest, J., Ourselin, S., Vercauteren, T. (2020). An automated framework for localization, segmentation and super-resolution reconstruction of fetal brain MRI. NeuroImage, 206, 116324.
+
+## Català
+
+### Requisits previs
+- Assegureu-vos que teniu l'arxiu executable (.BAT) al vostre ordinador
+- Necessitareu espai suficient al disc dur
+- L'ordinador ha d'estar connectat a Internet durant la primera execució
+
+### Estructura de carpetes
+El script crearà automàticament les següents carpetes si no existeixen:
+- `DICOM`: Per a les imatges DICOM d'entrada
+- `nifti`: Per als arxius convertits (ha d'estar buida abans de l'execució)
+- `output`: Per als resultats de l'anàlisi (ha d'estar buida abans de l'execució)
+
+### Passos per a l'execució
+1. Col·loqueu les vostres imatges DICOM a la carpeta `DICOM`
+   - Cada estudi ha d'estar en una carpeta separada dins de `DICOM`
+   - Exemple: `DICOM/Pacient1/`, `DICOM/Pacient2/`, etc.
+
+2. Assegureu-vos que les carpetes `nifti` i `output` estan buides
+   - Si hi ha arxius d'execucions anteriors, elimineu-los
+   - Important: Guardeu els resultats anteriors en una altra ubicació si els necessiteu
+
+3. Execució del script
+   - Feu doble clic sobre l'arxiu .BAT
+   - S'obrirà una finestra negra de comandes
+   - NO tanqueu aquesta finestra fins que el procés hagi acabat
+   - El procés pot trigar entre 5-15 minuts per estudi
+
+4. Finalització
+   - El script es tancarà automàticament quan hagi acabat
+   - Els resultats es trobaran a la carpeta `output`
+   - Les imatges convertides estaran a la carpeta `nifti`
+
+### Problemes coneguts
+[Espai reservat per a problemes coneguts]
