@@ -1,17 +1,25 @@
 #!/bin/bash
 
 # Hardcoded directories
-INPUT_DIR="input"
+INPUT_DIR="nifti"
 OUTPUT_DIR="output"
+DICOM_DIR="dicom"
 
 # Get absolute paths
 INPUT_DIR=$(realpath "$INPUT_DIR")
 OUTPUT_DIR=$(realpath "$OUTPUT_DIR")
+DICOM_DIR=$(realpath "$DICOM_DIR")
 
 # Check if directories exist
-if [ ! -d "$INPUT_DIR" ]; then
-    echo "Error: Input directory $INPUT_DIR does not exist"
+if [ ! -d "$DICOM_DIR" ]; then
+    echo "Error: Dicom input directory $DICOM_DIR does not exist"
     exit 1
+fi
+
+# Create input directory
+if [ ! -d "$INPUT_DIR" ]; then
+    echo "Creating input directory $INPUT_DIR"
+    mkdir -p "$INPUT_DIR"
 fi
 
 if [ ! -d "$OUTPUT_DIR" ]; then
@@ -25,8 +33,9 @@ docker run \
     --gpus all \
     -v "$INPUT_DIR":/app/data/inputs \
     -v "$OUTPUT_DIR":/app/data/outputs \
+    -v "$DICOM_DIR":/app/data/dicoms \
     -u $(id -u):$(id -g) \
-    docker-niftymic-clinic
+    gerardmartijuan/docker-niftymic-clinic:latest
 
 # Check if docker run was successful
 if [ $? -eq 0 ]; then

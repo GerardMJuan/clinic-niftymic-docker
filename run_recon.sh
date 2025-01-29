@@ -6,10 +6,20 @@ INPUT_DIR="/app/data/inputs"
 OUTPUT_DIR="/app/data/outputs"
 
 # Check if directories exist
-if [ ! -d "$INPUT_DIR" ] || [ ! -d "$OUTPUT_DIR" ]; then
-    echo "Error: Input or output directory does not exist"
+if [ ! -d "$INPUT_DIR" ] || [ ! -d "$OUTPUT_DIR" ] || [ ! -d "$DICOM_DIR" ]; then
+    echo "Error: Input or output or dicom directory does not exist"
     exit 1
 fi
+
+# create new directory in dicoms directory named "nifti"
+mkdir -p "$DICOM_DIR/nifti"
+
+# Run dcm2niix to convert DICOM files to NIfTI
+echo "Running dcm2niix..."
+dcm2niix -o "$DICOM_DIR/nifti" -f "%d_%p_%t_%s" -z y -w 0 "$DICOM_DIR"
+
+# move all the nifti files to the input directory, but only those that have either T2 or t2 in their name, and either HASTE or haste 
+find "$DICOM_DIR/nifti" -type f \( -name "*[Tt]2*[Hh][Aa][Ss][Tt][Ee]*.nii.gz" -o -name "*[Hh][Aa][Ss][Tt][Ee]*[Tt]2*.nii.gz" \) -exec mv {} "$INPUT_DIR" \;
 
 # Get all nii.gz files and create space-separated list
 files=$(ls "$INPUT_DIR"/*.nii.gz | tr '\n' ' ' | sed 's/ $//')
