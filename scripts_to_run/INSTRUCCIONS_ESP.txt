@@ -1,25 +1,23 @@
+# Manual de instrucciones para la ejecución del script de reconstrucción fetal NiftyMIC
+(https://github.com/gift-surg/NiftyMIC)
 
----
-
-# Manual de instrucciones para la ejecución automática de análisis de imágenes
+[EbnerWang2020] Ebner, M., Wang, G., Li, W., Aertsen, M., Patel, P. A., Aughwane, R., Melbourne, A., Doel, T., Dymarkowski, S., De Coppi, P., David, A. L., Deprest, J., Ourselin, S., Vercauteren, T. (2020). An automated framework for localization, segmentation and super-resolution reconstruction of fetal brain MRI. NeuroImage, 206, 116324.
 
 ## Español
 
 ### Requisitos previos
 - Asegúrese de tener el archivo ejecutable (.BAT) en su ordenador
-- Necesitará espacio suficiente en el disco duro (mínimo 10GB recomendado)
-- El ordenador debe estar conectado a Internet durante la primera ejecución
+- Necesitará espacio suficiente en el disco duro
+- Asegúrese de que las carpetas "dicom", "nifti" y "output" existen y están en la misma carpeta que el archivo ejecutable
 
 ### Estructura de carpetas
-El script creará automáticamente las siguientes carpetas si no existen:
-- `DICOM`: Para las imágenes DICOM de entrada
-- `nifti`: Para los archivos convertidos (debe estar vacía antes de la ejecución)
+- `dicom`: Para las imágenes DICOM de entrada
+- `nifti`: Para los archivos nifti convertidos (debe estar vacía antes de la ejecución)
 - `output`: Para los resultados del análisis (debe estar vacía antes de la ejecución)
 
 ### Pasos para la ejecución
-1. Coloque sus imágenes DICOM en la carpeta `DICOM`
-   - Cada estudio debe estar en una carpeta separada dentro de `DICOM`
-   - Ejemplo: `DICOM/Paciente1/`, `DICOM/Paciente2/`, etc.
+1. Coloque sus imágenes DICOM en la carpeta `dicom`
+- Deben ser del mismo sujeto, cada sujeto se debe ejecutar de manera separada
 
 2. Asegúrese de que las carpetas `nifti` y `output` están vacías
    - Si hay archivos de ejecuciones anteriores, elimínelos
@@ -29,12 +27,14 @@ El script creará automáticamente las siguientes carpetas si no existen:
    - Haga doble clic sobre el archivo .BAT
    - Se abrirá una ventana negra de comandos
    - NO cierre esta ventana hasta que el proceso haya terminado
-   - El proceso puede tardar entre 5-15 minutos por estudio
+   - El proceso puede tardar entre 30-60 minutos por estudio, dependiendo del número de volúmenes
 
 4. Finalización
    - El script se cerrará automáticamente cuando haya terminado
-   - Los resultados se encontrarán en la carpeta `output`
-   - Las imágenes convertidas estarán en la carpeta `nifti`
+   - Los resultados se encontrarán en la carpeta `output/`
+   - Los resultados intermedios (imágenes nifti y máscaras) se encontrarán en las subcarpetas dentro de `output`
+   - Los resultados se pueden visualizar con cualquier software de visualización de imágenes médicas (p.ej. ITK-SNAP, 3D Slicer)
 
 ### Problemas conocidos
-[Espacio reservado para problemas conocidos]
+- En el proceso de transformación de DICOM a NIFTI, es posible que, dependiendo del protocolo utilizado, no reconozca bien las imágenes y genere un error. En este caso:
+    1. Después de la primera ejecución, ir a dicom/nifti y copiar manualmente los nii.gz correspondientes a los volúmenes t2-haste a la carpeta nifti/. Una vez hecho esto, volver a ejecutar el script debería solucionar los problemas.
