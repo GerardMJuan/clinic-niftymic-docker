@@ -8,18 +8,16 @@
 ### Requisits previs
 - Assegureu-vos que teniu l'arxiu executable (.BAT) al vostre ordinador
 - Necessitareu espai suficient al disc dur
-- L'ordinador ha d'estar connectat a Internet durant la primera execució
+- Assegureu-vos que les carpetes "dicom", "nifti" i "output" existeixen i estan a la mateixa carpeta que l'arxiu executable
 
 ### Estructura de carpetes
-El script crearà automàticament les següents carpetes si no existeixen:
-- `DICOM`: Per a les imatges DICOM d'entrada
-- `nifti`: Per als arxius convertits (ha d'estar buida abans de l'execució)
+- `dicom`: Per a les imatges DICOM d'entrada
+- `nifti`: Per als arxius nifti convertits (ha d'estar buida abans de l'execució)
 - `output`: Per als resultats de l'anàlisi (ha d'estar buida abans de l'execució)
 
 ### Passos per a l'execució
-1. Col·loqueu les vostres imatges DICOM a la carpeta `DICOM`
-   - Cada estudi ha d'estar en una carpeta separada dins de `DICOM`
-   - Exemple: `DICOM/Pacient1/`, `DICOM/Pacient2/`, etc.
+1. Col·loqueu les vostres imatges DICOM a la carpeta `dicom`
+- Han de ser del mateix subjecte, cada subjecte s'ha d'executar de manera separada
 
 2. Assegureu-vos que les carpetes `nifti` i `output` estan buides
    - Si hi ha arxius d'execucions anteriors, elimineu-los
@@ -29,12 +27,14 @@ El script crearà automàticament les següents carpetes si no existeixen:
    - Feu doble clic sobre l'arxiu .BAT
    - S'obrirà una finestra negra de comandes
    - NO tanqueu aquesta finestra fins que el procés hagi acabat
-   - El procés pot trigar entre 5-15 minuts per estudi
+   - El procés pot trigar entre 30-1h minuts per estudi, depenent del nombre de volums
 
 4. Finalització
    - El script es tancarà automàticament quan hagi acabat
-   - Els resultats es trobaran a la carpeta `output`
-   - Les imatges convertides estaran a la carpeta `nifti`
+   - Els resultats es trobaran a la carpeta `output/`
+   - Els resultats intermitgos (imatges nifti i mascares) es trobaran a les subcarpetes dins de `output`
+   - Els resultats es poden visualitzar amb qualsevol programari de visualització d'imatges mèdiques (p.e. ITK-SNAP, 3D Slicer)
 
 ### Problemes coneguts
-[Espai reservat per a problemes coneguts]
+- En el procés de transformació de DICOM a NIFTI, és possible que, depenent del protocol utilizat, no reconegui bé les imatges i salti error. En aquest cas:
+    1. Després de la primera execució, anar a dicom/nifti i copiar manualment els nii.gz corresponents als volums t2-haste a la carpeta nifti/. Un cop fet això, tornar a executar l'script hauria de solucionar els problemes.
