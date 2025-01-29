@@ -68,9 +68,18 @@ niftymic_run_reconstruction_pipeline \
     --automatic-target-stack 1 \
     --run-bias-field-correction 1
 
+# check if the subject space reconstruction is successful
+if [ ! -f "$OUTPUT_DIR/recon/recon_subject_space/srr_subject.nii.gz" ]; then
+    echo "An error has happened during reconstruction, no subject space reconstruction found"
+    exit 1
+fi
+
+# If we get here, the output exists, so move it
+mv "$OUTPUT_DIR/recon/recon_subject_space/srr_subject.nii.gz" "$OUTPUT_DIR/recon_subject.nii.gz"
+
 # Check for output files and logs
 if [ ! -f "$OUTPUT_DIR/recon/recon_template_space/srr_template.nii.gz" ]; then
-    echo "An error has happened during reconstruction"
+    echo "An error has happened during reconstruction, no template space reconstruction found"
     exit 1
 fi
 
