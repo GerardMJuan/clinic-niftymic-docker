@@ -59,13 +59,19 @@ def main(args):
 
     print("Processing masks and images...")
     # Process masks and images
-    process_masks_and_images(
-        list_of_masks_base,
-        list_of_masks,
-        list_of_files,
-        list_of_crops,
-        args.apply_mask,
-    )
+    # process_masks_and_images(
+    #     list_of_masks_base,
+    #     list_of_masks,
+    #     list_of_files,
+    #     list_of_crops,
+    #     args.apply_mask,
+    # )
+
+    # Copy the list of masks_base to the list of masks, and the list of files to the list of crops
+    for mask_base, mask in zip(list_of_masks_base, list_of_masks):
+        os.system(f"cp {mask_base} {mask}")
+    for file, crop in zip(list_of_files, list_of_crops):
+        os.system(f"cp {file} {crop}")
 
 
 def parser_obj():

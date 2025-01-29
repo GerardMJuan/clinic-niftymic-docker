@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Define directories
+DICOM_DIR="/app/data/dicoms" # This is the directory where the DICOM files are stored
 INPUT_DIR="/app/data/inputs"
 OUTPUT_DIR="/app/data/outputs"
 
@@ -12,7 +13,6 @@ fi
 
 # Get all nii.gz files and create space-separated list
 files=$(ls "$INPUT_DIR"/*.nii.gz | tr '\n' ' ' | sed 's/ $//')
-
 
 # Run prepare_recon.py first
 echo "Running prepare_recon.py..."
