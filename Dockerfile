@@ -1,6 +1,25 @@
 # Stage 1: Start from NiftyMIC and copy ANTs into it
 FROM gerardmartijuan/niftymic.multifact AS niftymic
 
+# Install build dependencies for dcm2niix
+RUN apt-get update && \
+    apt-get install -y \
+    cmake \
+    pkg-config \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Build and install dcm2niix
+RUN git clone https://github.com/rordenlab/dcm2niix.git && \
+    cd dcm2niix && \
+    mkdir build && \
+    cd build && \
+    cmake -DZLIB_IMPLEMENTATION=Cloudflare -DUSE_JPEGLS=ON -DUSE_OPENJPEG=ON .. && \
+    make install && \
+    cd / && \
+    rm -rf dcm2niix
+
 # Install Python dependencies
 RUN apt-get update && \
     apt-cache search python3 | grep "^python3\." && \
