@@ -2,7 +2,7 @@
 
 # Define directories
 DICOM_DIR="/app/data/dicoms" # This is the directory where the DICOM files are stored
-INPUT_DIR="/app/data/inputs"
+INPUT_DIR="/app/data/nifti"
 OUTPUT_DIR="/app/data/outputs"
 
 # Check if directories exist
@@ -18,8 +18,13 @@ mkdir -p "$DICOM_DIR/nifti"
 echo "Running dcm2niix..."
 dcm2niix -o "$DICOM_DIR/nifti" -f "%d_%p_%t_%s" -z y -w 0 "$DICOM_DIR"
 
-# move all the nifti files to the input directory, but only those that have either T2 or t2 in their name, and either HASTE or haste 
-find "$DICOM_DIR/nifti" -type f \( -name "*[Tt]2*[Hh][Aa][Ss][Tt][Ee]*.nii.gz" -o -name "*[Hh][Aa][Ss][Tt][Ee]*[Tt]2*.nii.gz" \) -exec mv {} "$INPUT_DIR" \;
+# Check if INPUT_DIR is empty
+if [ -z "$(ls -A $INPUT_DIR)" ]; then
+    # move all the nifti files to the input directory, but only those that have either T2 or t2 in their name, and either HASTE or haste 
+    find "$DICOM_DIR/nifti" -type f \( -name "*[Tt]2*[Hh][Aa][Ss][Tt][Ee]*.nii.gz" -o -name "*[Hh][Aa][Ss][Tt][Ee]*[Tt]2*.nii.gz" \) -exec mv {} "$INPUT_DIR" \;
+else
+    echo "Input directory is not empty; will use the files there for the reconstruction."
+fi
 
 # Get all nii.gz files and create space-separated list
 files=$(ls "$INPUT_DIR"/*.nii.gz | tr '\n' ' ' | sed 's/ $//')

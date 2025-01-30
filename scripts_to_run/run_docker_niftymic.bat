@@ -37,7 +37,7 @@ docker run ^
     --ipc=host ^
     -v "%INPUT_DIR%":/app/data/nifti ^
     -v "%OUTPUT_DIR%":/app/data/outputs ^
-    -v "%DICOM_DIR%":/app/data/dicom ^
+    -v "%DICOM_DIR%":/app/data/dicoms ^
     gerardmartijuan/docker-niftymic-clinic:latest
 
 :: Check if docker run was successful

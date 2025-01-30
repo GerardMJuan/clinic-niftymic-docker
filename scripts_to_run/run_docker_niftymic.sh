@@ -31,7 +31,7 @@ fi
 docker run \
     --rm \
     --gpus all \
-    -v "$INPUT_DIR":/app/data/inputs \
+    -v "$INPUT_DIR":/app/data/nifti \
     -v "$OUTPUT_DIR":/app/data/outputs \
     -v "$DICOM_DIR":/app/data/dicoms \
     -u $(id -u):$(id -g) \
